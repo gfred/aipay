@@ -1,0 +1,80 @@
+# llms.txt for yourdomain.com
+# Your Site Description
+
+site: https://yourdomain.com
+owner: yourdomain.com
+contact: ai@yourdomain.com
+updated: 2026-02-19
+
+summary: Your site description here - what content you offer.
+
+content:
+  articles: 50
+  images: 500+
+  languages: en
+
+# -----------------------------
+# AI Access (Paid)
+# -----------------------------
+
+ai_access: paid_required
+protocol: L402
+payment_network: lightning
+
+pricing:
+  per_request_sats: 10
+  daily_pass_sats: 1000
+  monthly_pass_sats: 10000
+
+auth:
+  header: Authorization
+  scheme: L402
+  value: "<payment_hash>"
+
+endpoints:
+  invoice: POST https://yourdomain.com/api/invoice
+  verify: GET https://yourdomain.com/api/verify?hash=<payment_hash>
+  portal: https://yourdomain.com/ai-portal
+
+rate_limits:
+  note: Requests are rate-limited. Abuse will be blocked.
+
+# -----------------------------
+# Permitted Use (Paid Access)
+# -----------------------------
+
+allowed:
+  - crawl
+  - read
+  - summarize
+  - extract_metadata
+  - retrieval_indexing
+
+not_allowed:
+  - model_training
+  - dataset_creation
+  - redistribution_of_full_text
+  - bulk_download
+
+# -----------------------------
+# Training / Licensing
+# -----------------------------
+
+training: license_required
+license_contact: ai@yourdomain.com
+
+# -----------------------------
+# Crawl Scope
+# -----------------------------
+
+crawl_allow:
+  - /posts/
+  - /articles/
+  - /content/
+
+crawl_disallow:
+  - /api/
+  - /admin/
+  - /private/
+
+sitemap: https://yourdomain.com/sitemap.xml

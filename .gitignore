@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+*.log
+
+# Local config (contains API keys)
+config.local.json
+
+# Don't commit your actual keys!
+# Use wrangler.toml [vars] or environment variables instead

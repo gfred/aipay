@@ -1,0 +1,7 @@
+{
+  "lnbits_url": "https://your-lnbits-instance.com",
+  "wallet_id": "YOUR_WALLET_ID",
+  "admin_key": "YOUR_ADMIN_KEY",
+  "invoice_key": "YOUR_INVOICE_KEY",
+  "daily_budget_sats": 1000
+}

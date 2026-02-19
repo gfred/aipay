@@ -1,0 +1,29 @@
+{
+  "name": "aipay",
+  "version": "1.0.0",
+  "description": "Block AI crawlers and offer paid access via Lightning Network micropayments",
+  "main": "worker.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "ai",
+    "paywall",
+    "lightning",
+    "bitcoin",
+    "l402",
+    "cloudflare",
+    "workers",
+    "micropayments"
+  ],
+  "author": "Fred",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gfred/aipay"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Access API - AIPay</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-code: #0d0d0d;
+            --border: #2a2a2a;
+            --text: #e5e5e5;
+            --text-dim: #888888;
+            --accent: #00d4aa;
+            --amber: #f7931a;
+            --success: #00d46a;
+            --error: #ff4757;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .header-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 16px;
+            max-width: 600px;
+        }
+
+        .header a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 48px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+
+        p {
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+        }
+
+        .code-comment { color: #6a737d; }
+        .code-key { color: var(--accent); }
+        .code-string { color: #a5d6ff; }
+        .code-number { color: var(--amber); }
+
+        /* Inline code */
+        p code, li code {
+            background: var(--bg-card);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-dim);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        td:last-child {
+            color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+
+        /* Demo Section */
+        .demo-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .demo-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-title::before {
+            content: '▶';
+            color: var(--accent);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        /* QR Display */
+        .qr-container {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .qr-wrapper {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .qr-image {
+            width: 160px;
+            height: 160px;
+            display: block;
+        }
+
+        .qr-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .invoice-text {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-dim);
+            word-break: break-all;
+            margin: 12px 0;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        /* Status */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 12px 0;
+        }
+
+        .status.waiting {
+            background: rgba(247, 147, 26, 0.1);
+            color: var(--amber);
+        }
+
+        .status.success {
+            background: rgba(0, 212, 106, 0.1);
+            color: var(--success);
+        }
+
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Token Display */
+        .token-display {
+            background: var(--bg-code);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .token-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .token-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        /* Links */
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .mt-8 { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-label">API Documentation</div>
+            <h1>AI Content Access</h1>
+            <p>
+                This site uses the L402 protocol to provide paid API access for AI systems.
+                Human visitors can access the site normally — this API is for automated systems and AI crawlers.
+            </p>
+        </header>
+
+        <!-- Overview -->
+        <section>
+            <h2>Content Overview</h2>
+            <p>Premium content protected by AIPay — Lightning micropayments for AI access.</p>
+
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">L402</div>
+                    <div class="stat-label">Protocol</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">10</div>
+                    <div class="stat-label">Sats / Request</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1k</div>
+                    <div class="stat-label">Sats / Day Pass</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">10k</div>
+                    <div class="stat-label">Sats / Month</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works -->
+        <section>
+            <h2>How It Works</h2>
+            <p>When an AI crawler requests content, the server returns <code>HTTP 402 Payment Required</code> with payment instructions. After payment via Lightning Network, include the token in subsequent requests.</p>
+
+            <h3>1. Request Content</h3>
+<pre><span class="code-comment"># AI crawler requests a page</span>
+curl https://yourdomain.com/posts/2023/example-post/
+
+<span class="code-comment"># Response: 402 Payment Required</span>
+{
+  <span class="code-key">"status"</span>: <span class="code-number">402</span>,
+  <span class="code-key">"message"</span>: <span class="code-string">"AI access requires payment"</span>,
+  <span class="code-key">"payment"</span>: {
+    <span class="code-key">"method"</span>: <span class="code-string">"Lightning Network"</span>,
+    <span class="code-key">"endpoint"</span>: <span class="code-string">"https://yourdomain.com/api/v1/invoice"</span>
+  }
+}</pre>
+
+            <h3>2. Generate Invoice</h3>
+<pre><span class="code-comment"># Request a Lightning invoice</span>
+curl -X POST https://yourdomain.com/api/v1/invoice \
+  -H "Content-Type: application/json" \
+  -d '{"plan": "perRequest"}'
+
+<span class="code-comment"># Response includes bolt11 invoice</span>
+{
+  <span class="code-key">"invoice"</span>: {
+    <span class="code-key">"bolt11"</span>: <span class="code-string">"lnbc10n1pn..."</span>,
+    <span class="code-key">"paymentHash"</span>: <span class="code-string">"a1b2c3d4..."</span>,
+    <span class="code-key">"expiresAt"</span>: <span class="code-string">"2026-02-..."</span>
+  }
+}</pre>
+
+            <h3>3. Pay & Access</h3>
+<pre><span class="code-comment"># After payment, use the paymentHash as token</span>
+curl https://yourdomain.com/posts/2023/example-post/ \
+  -H "Authorization: L402 a1b2c3d4..."
+
+<span class="code-comment"># Response: Full content</span></pre>
+        </section>
+
+        <!-- API Reference -->
+        <section>
+            <h2>API Reference</h2>
+
+            <h3>POST /api/v1/invoice</h3>
+            <p>Generate a Lightning invoice for content access.</p>
+
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>plan</td>
+                    <td>perRequest</td>
+                    <td>Single page access</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>dayPass</td>
+                    <td>24 hour unlimited access</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>monthPass</td>
+                    <td>30 day unlimited access</td>
+                </tr>
+            </table>
+
+            <h3>GET /api/v1/verify</h3>
+            <p>Check if a payment has been completed.</p>
+
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Example</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>hash</td>
+                    <td>a1b2c3d4...</td>
+                    <td>Payment hash from invoice</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Pricing -->
+        <section>
+            <h2>Pricing</h2>
+            <p>Payments are in <strong>Satoshis</strong> (sats) via the Lightning Network. 1 BTC = 100,000,000 sats.</p>
+
+            <table>
+                <tr>
+                    <th>Plan</th>
+                    <th>Sats</th>
+                    <th>USD (approx)</th>
+                </tr>
+                <tr>
+                    <td>perRequest</td>
+                    <td>10</td>
+                    <td>~$0.007</td>
+                </tr>
+                <tr>
+                    <td>dayPass</td>
+                    <td>1,000</td>
+                    <td>~$0.66</td>
+                </tr>
+                <tr>
+                    <td>monthPass</td>
+                    <td>10,000</td>
+                    <td>~$6.62</td>
+                </tr>
+            </table>
+
+            <p class="mt-16" style="font-size: 14px;">
+                For enterprise licensing or custom arrangements, contact the site owner.
+            </p>
+        </section>
+
+        <!-- Live Demo -->
+        <section>
+            <h2>Live Demo</h2>
+            <p>Test the payment flow. Generate an invoice and pay with any Lightning wallet.</p>
+
+            <div class="demo-box">
+                <div class="demo-title">Interactive Demo</div>
+
+                <!-- Initial -->
+                <div id="demo-initial">
+                    <p style="margin-bottom: 16px; color: var(--text-dim);">
+                        Generate a test invoice (perRequest = 10 sats)
+                    </p>
+                    <button class="btn" onclick="generateInvoice()">Generate Invoice</button>
+                </div>
+
+                <!-- Invoice -->
+                <div id="demo-invoice" class="hidden">
+                    <div class="qr-container">
+                        <div class="qr-wrapper">
+                            <img id="qr-image" class="qr-image" src="" alt="Lightning QR">
+                        </div>
+                        <div class="qr-info">
+                            <p style="margin: 0 0 8px 0; color: var(--text);">Scan or copy invoice:</p>
+                            <div class="invoice-text" id="invoice-bolt11"></div>
+                            <button class="btn btn-secondary" onclick="copyInvoice()">Copy Invoice</button>
+                        </div>
+                    </div>
+
+                    <div class="status waiting">
+                        <div class="spinner"></div>
+                        Waiting for payment...
+                    </div>
+                </div>
+
+                <!-- Success -->
+                <div id="demo-success" class="hidden">
+                    <div class="status success">✓ Payment received</div>
+
+                    <div class="token-display">
+                        <div class="token-label">Access Token</div>
+                        <div class="token-value" id="access-token"></div>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="copyToken()">Copy Token</button>
+                    <button class="btn btn-secondary mt-8" onclick="resetDemo()" style="margin-left: 8px;">Reset Demo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section>
+            <h2>Resources</h2>
+            <table>
+                <tr>
+                    <td><a href="/llms.txt" style="color: var(--accent)">/llms.txt</a></td>
+                    <td style="font-family: Inter, sans-serif;">Machine-readable site info for LLMs</td>
+                </tr>
+                <tr>
+                    <td><a href="/robots.txt" style="color: var(--accent)">/robots.txt</a></td>
+                    <td style="font-family: Inter, sans-serif;">Crawler directives</td>
+                </tr>
+                <tr>
+                    <td><a href="/sitemap.xml" style="color: var(--accent)">/sitemap.xml</a></td>
+                    <td style="font-family: Inter, sans-serif;">Content sitemap</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-links">
+            <a href="https://github.com/gfred/aipay">GitHub</a>
+            <span style="color: var(--text-dim); font-size: 14px;">L402 • Lightning Network • HTTP 402</span>
+        </footer>
+    </div>
+
+    <script>
+        // API base URL — auto-detects from current page origin
+        const API_BASE = window.location.origin;
+        let currentInvoice = null;
+        let pollTimer = null;
+
+        async function generateInvoice() {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/invoice`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ plan: 'perRequest' })
+                });
+
+                if (!response.ok) throw new Error('Failed');
+
+                const data = await response.json();
+                currentInvoice = data;
+
+                document.getElementById('demo-initial').classList.add('hidden');
+                document.getElementById('demo-invoice').classList.remove('hidden');
+                document.getElementById('qr-image').src = data.qrCode;
+                document.getElementById('invoice-bolt11').textContent = data.invoice.bolt11;
+
+                startPolling(data.invoice.paymentHash);
+            } catch (e) {
+                alert('Error generating invoice. API may not be deployed yet.');
+            }
+        }
+
+        function startPolling(hash) {
+            let attempts = 0;
+            const maxAttempts = 60; // Stop after ~5 minutes
+            pollTimer = setInterval(async () => {
+                attempts++;
+                if (attempts > maxAttempts) {
+                    clearInterval(pollTimer);
+                    return;
+                }
+                try {
+                    const res = await fetch(`${API_BASE}/api/v1/verify?hash=${hash}`);
+                    const data = await res.json();
+                    if (data.paid) {
+                        clearInterval(pollTimer);
+                        showSuccess(hash);
+                    }
+                } catch (e) {
+                    console.warn('Poll error:', e);
+                }
+            }, 5000);
+        }
+
+        function showSuccess(token) {
+            document.getElementById('demo-invoice').classList.add('hidden');
+            document.getElementById('demo-success').classList.remove('hidden');
+            document.getElementById('access-token').textContent = token;
+        }
+
+        function resetDemo() {
+            clearInterval(pollTimer);
+            currentInvoice = null;
+            document.getElementById('demo-initial').classList.remove('hidden');
+            document.getElementById('demo-invoice').classList.add('hidden');
+            document.getElementById('demo-success').classList.add('hidden');
+        }
+
+        window.addEventListener('beforeunload', () => clearInterval(pollTimer));
+
+        function copyInvoice() {
+            navigator.clipboard.writeText(currentInvoice.invoice.bolt11);
+            event.target.textContent = 'Copied!';
+            setTimeout(() => event.target.textContent = 'Copy Invoice', 2000);
+        }
+
+        function copyToken() {
+            navigator.clipboard.writeText(document.getElementById('access-token').textContent);
+            event.target.textContent = 'Copied!';
+            setTimeout(() => event.target.textContent = 'Copy Token', 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+name = "aipay"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Environment variables — set these in Cloudflare Dashboard or uncomment below.
+#
+# Required:
+#   ORIGIN_URL         - Your origin site URL (e.g. "https://your-site.pages.dev")
+#   LNBITS_URL         - LNbits instance URL (e.g. "https://lnbits.com")
+#   LNBITS_WALLET_ID   - LNbits wallet ID
+#   LNBITS_INVOICE_KEY - LNbits invoice/read key
+#
+# Optional:
+#   AI_PORTAL_URL      - URL for the AI portal page (default: "https://ai.yourdomain.com")
+#   SITE_DESCRIPTION   - Description shown in 402 responses
+#   CONTACT_EMAIL      - Contact email shown in 402 responses
+#
+# [vars]
+# ORIGIN_URL = "https://your-site.pages.dev"
+# LNBITS_URL = "https://lnbits.com"
+# LNBITS_WALLET_ID = "your-wallet-id"
+# LNBITS_INVOICE_KEY = "your-invoice-key"
+# AI_PORTAL_URL = "https://ai.yourdomain.com"
+# SITE_DESCRIPTION = "Your site description"
+# CONTACT_EMAIL = "ai@yourdomain.com"
+
+# Routes (configure in Cloudflare Dashboard instead)
+# routes = [
+#   { pattern = "yourdomain.com/*", zone_name = "yourdomain.com" }
+# ]
