@@ -187,6 +187,25 @@ Lightning Network enables:
 - Tiny amounts (fractions of cents)
 - Global (no payment processor restrictions)
 
+## GDPR Compliance
+
+This approach is GDPR-compliant for European deployments.
+
+**Legal basis:** Legitimate interest (Art. 6(1)(f) GDPR)
+- Protecting content from unauthorized automated scraping
+- Regular human visitors are not affected
+- No personal data is used for AI detection
+
+**Recommended privacy policy additions:**
+- Document use of Cloudflare as CDN/security layer
+- Explain that AI crawlers are detected and blocked unless authorized
+- Detail data processing (IP, User-Agent, etc.)
+- Address third-country transfers if using US services (SCCs + EU-US DPF)
+
+See `examples/privacy-policy-snippet.md` for template text you can adapt.
+
+**Key point:** You're not blocking humans or discriminating - you're requiring payment for automated commercial access. That's a legitimate business model.
+
 ## Examples
 
 ### OpenClaw L402 Skill
