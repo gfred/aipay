@@ -233,6 +233,16 @@ Ideas for improvement:
 - Webhook notifications on payment
 - Rate limiting per token
 
+## Alternatives
+
+This was a learning project. If you're looking for production-ready solutions:
+
+- **[Cloudflare Pay-per-Crawl](https://blog.cloudflare.com/introducing-pay-per-crawl/)** - Managed solution (private beta)
+- **[Coinbase x402](https://github.com/coinbase/x402)** - Open standard with multi-chain support
+- **[DataToll](https://www.pixel-x.jp/datatoll)** - SaaS bot paywall platform
+
+AIPay remains useful as a lightweight, self-hosted Lightning-based alternative.
+
 ## License
 
 MIT - See [LICENSE](LICENSE) for details.
